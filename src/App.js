@@ -3,7 +3,7 @@ import twitterLogo from './assets/twitter-logo.svg';
 import mkLogo from './assets/mk.png';
 import './App.css';
 import SelectCharacter from './Components/SelectCharacter';
-
+import FungameABI from './utils/Fungame.json';
 
 const TWITTER_HANDLE = 'thefemiayodeji';
 const TWITTER_LINK = `https://twitter.com/${TWITTER_HANDLE}`;
@@ -90,7 +90,7 @@ const App = () => {
           <p className="sub-text">Team up to protect the Metaverse!</p>
 
           {renderContent()}
-          
+
         </div>
         <div className="footer-container">
           <span className="footer-text">Built by </span>
