@@ -21,6 +21,9 @@
   position: relative;
   justify-self: center;
   align-self: center;
+  background: rgba(255,255,255,0.2);
+  border-radius: 10px;
+  border: 1px solid #ffffff8c;
 }
 
 .character-item img {
@@ -32,15 +35,16 @@
 
 .character-item .name-container {
   position: absolute;
-  background-color: #838383;
+  background-color: #8383835b;
   border-radius: 5px;
   margin: 10px;
+  border: 1px solid #ffffff8c;
 }
 
 .character-item .name-container p {
   margin: 0;
   padding: 5px 10px 5px 10px;
-  font-weight: bold;
+  font-weight: 100;
 }
 
 .character-item .character-mint-button {
@@ -52,8 +56,15 @@
   border-bottom-right-radius: 10px;
   border: none;
   cursor: pointer;
-  background-color: rgb(32, 129, 226);
-  color: white;
-  font-weight: bold;
+  background-color: rgba(226, 15, 15, 0.281);
+  color: rgb(236, 216, 33);
+  /* text-shadow: 1px 1px 1px #000000; */
+  font-weight: 100;
   font-size: 16px;
+  transition: 0.5s;
+}
+
+.character-mint-button:hover {
+  background-color: rgb(226, 15, 15);
+  font-size: 12px;
 }

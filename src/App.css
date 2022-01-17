@@ -2,18 +2,24 @@
   width: 100%;
   height: 100vh;
   background-color: #0d1116;
-  background: url("assets/bg.gif") no-repeat fixed;
+  background: url("assets/bg.gif");
+  background-position: center;
+  background-repeat: no-repeat;
   background-size: cover;
+  position: fixed;
   overflow: hidden;
   text-align: center;
 }
 
 .container {
+  position: absolute;
+  width: 100%;
   height: 100%;
-  background-color: #0d111681;
+  background-color: #0d1116d5;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  overflow-y: scroll;
 }
 
 .header-container {
@@ -81,7 +87,7 @@
 }
 
 .select-character-container{
-  margin-top: 100px;  
+  margin-top: 64px;  
 }
 
 .mint-button {
@@ -106,6 +112,7 @@
   justify-content: center;
   align-items: center;
   padding-bottom: 30px;
+  margin-top: 50px;
 }
 
 .twitter-logo {
