@@ -1,3 +1,13 @@
 const CONTRACT_ADDRESS = '0x3032862162737C5120c905173563ac5076E748A9';
 
-export { CONTRACT_ADDRESS };
+const transformCharacterData = (characterData) => {
+    return {
+        name: characterData.name,
+        imageURI: characterData.imageURI,
+        hp: characterData.hp.toNumber(),
+        maxHp: characterData.maxHp.toNumber(),
+        attackDamage: characterData.attackDamage.toNumber(),
+    };
+};
+
+export { CONTRACT_ADDRESS, transformCharacterData };
