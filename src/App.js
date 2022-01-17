@@ -2,12 +2,15 @@ import React, {useEffect, useState} from 'react';
 import twitterLogo from './assets/twitter-logo.svg';
 import mkLogo from './assets/mk.png';
 import './App.css';
+import SelectCharacter from './Components/SelectCharacter';
+
 
 const TWITTER_HANDLE = 'thefemiayodeji';
 const TWITTER_LINK = `https://twitter.com/${TWITTER_HANDLE}`;
 
 const App = () => {
-  const [currentAccount, setCurrentAccount] = useState(null);
+    const [currentAccount, setCurrentAccount] = useState(null);
+    const [characterNFT, setCharacterNFT] = useState(null);
 
     const checkIfWalletIsConnected = async () => {
       try {
@@ -33,7 +36,24 @@ const App = () => {
         console.log(error);
       }
     };
-  
+    
+    const renderContent = () => {
+      if (!currentAccount) {
+        return (
+          <div className="connect-wallet-container">
+            <button
+              className="cta-button connect-wallet-button"
+              onClick={connectWalletAction}
+            >
+              Connect Wallet To Get Started
+            </button>  
+          </div>
+        );
+      } else if (currentAccount && !characterNFT) {
+        return <SelectCharacter setCharacterNFT={setCharacterNFT} />;
+      }
+    };
+
     const connectWalletAction = async () => {
       try {
         const { ethereum } = window;
@@ -68,18 +88,9 @@ const App = () => {
             Kombat
           </p>
           <p className="sub-text">Team up to protect the Metaverse!</p>
-          <div className="connect-wallet-container">
-            {
-              !currentAccount && (
-                <button
-                  className="cta-button connect-wallet-button"
-                  onClick={connectWalletAction}
-                >
-                  Connect Wallet To Get Started
-                </button>  
-              )
-            }
-          </div>
+
+          {renderContent()}
+          
         </div>
         <div className="footer-container">
           <span className="footer-text">Built by </span>
