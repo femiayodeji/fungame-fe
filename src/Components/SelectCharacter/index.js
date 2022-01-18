@@ -3,10 +3,13 @@ import './SelectCharacter.css';
 import { CONTRACT_ADDRESS, transformCharacterData } from '../../constants';
 import FungameABI from '../../utils/FunGame.json';
 import { ethers } from 'ethers';
+import mintLogo from '../../assets/mint.gif';
+import LoadingIndicator from '../LoadingIndicator';
 
 const SelectCharacter = ({ setCharacterNFT }) => {
     const [characters, setCharacters] = useState([]);
     const [gameContract, setGameContract] = useState(null);
+    const [mintingCharacter, setMintingCharacter] = useState(false);
 
     const renderCharacters = () => {
         return characters.map((character, index) => (
@@ -27,13 +30,16 @@ const SelectCharacter = ({ setCharacterNFT }) => {
     const mintCharacterNFTAction = (characterId) => async () => {
         try {
           if (gameContract) {
+            setMintingCharacter(true);
             console.log('Minting character in progress...');
             const mintTxn = await gameContract.mintCharacterNFT(characterId);
             await mintTxn.wait();
             console.log('mintTxn:', mintTxn);
+            setMintingCharacter(false);
           }
         } catch (error) {
           console.warn('MintCharacterAction Error:', error);
+          setMintingCharacter(false);
         }
     };
 
@@ -95,17 +101,31 @@ const SelectCharacter = ({ setCharacterNFT }) => {
         } else {
           console.log('Ethereum object not found');
         }
+        setMintingCharacter(true)
     }, []);
     
     return (
         <div className="select-character-container">
-            <h2>Mint Your Hero. Choose wisely.</h2>
-            {
-                characters.length > 0 && 
-                (
-                    <div className="character-grid">{renderCharacters()}</div>
-                )
-            }
+          <h2>Mint Your Hero. Choose wisely.</h2>
+          {
+              characters.length > 0 && 
+              (
+                  <div className="character-grid">{renderCharacters()}</div>
+              )
+          }
+
+          {mintingCharacter && (
+            <div className="loading">
+              <div className="indicator">
+                <LoadingIndicator />
+                <p>Minting In Progress...</p>
+              </div>
+              <img
+                src={mintLogo}
+                alt="Minting loading indicator"
+              />
+            </div>
+          )}            
         </div>
     );
 };
