@@ -4,6 +4,7 @@ import mkLogo from './assets/mk.png';
 import './App.css';
 import SelectCharacter from './Components/SelectCharacter';
 import Arena from './Components/Arena';
+import LoadingIndicator from './Components/LoadingIndicator';
 import { CONTRACT_ADDRESS, transformCharacterData } from './constants';
 import FungameABI from './utils/FunGame.json';
 import { ethers } from 'ethers';
@@ -14,6 +15,7 @@ const TWITTER_LINK = `https://twitter.com/${TWITTER_HANDLE}`;
 const App = () => {
     const [currentAccount, setCurrentAccount] = useState(null);
     const [characterNFT, setCharacterNFT] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);  
 
     const checkIfWalletIsConnected = async () => {
       try {
@@ -21,6 +23,7 @@ const App = () => {
   
         if (!ethereum) {
           console.log('Make sure you have MetaMask!');
+          setIsLoading(false);
           return;
         } else {
           console.log('We have the ethereum object', ethereum);
@@ -31,6 +34,7 @@ const App = () => {
             const account = accounts[0];
             console.log('Found an authorized account:', account);
             setCurrentAccount(account);
+            setIsLoading(false);
           } else {
             console.log('No authorized account found');
           }
@@ -38,9 +42,14 @@ const App = () => {
       } catch (error) {
         console.log(error);
       }
+      setIsLoading(false);
     };
     
     const renderContent = () => {
+      if (isLoading) {
+        return <LoadingIndicator />;
+      }
+
       if (!currentAccount) {
         return (
           <div className="connect-wallet-container">
@@ -80,6 +89,7 @@ const App = () => {
     };
   
     useEffect(() => {
+      setIsLoading(true);
       checkIfWalletIsConnected();
 
       // const checkNetwork = async () => {
@@ -107,13 +117,12 @@ const App = () => {
           signer
         );
     
-        const txn = await gameContract.checkIfUserHasNFT();
-        if (txn.name) {
+        const characterNFT = await gameContract.checkIfUserHasNFT();
+        if (characterNFT.name) {
           console.log('User has character NFT');
-          setCharacterNFT(transformCharacterData(txn));
-        } else {
-          console.log('No character NFT found');
+          setCharacterNFT(transformCharacterData(characterNFT));
         }
+        setIsLoading(false);        
       };
     
       if (currentAccount) {
