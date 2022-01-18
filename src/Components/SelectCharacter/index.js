@@ -71,7 +71,13 @@ const SelectCharacter = ({ setCharacterNFT }) => {
           getCharacters();
           gameContract.on('CharacterNFTMinted', onCharacterMint);
         }
-    }, [gameContract]);
+
+        return () => {
+            if (gameContract) {
+              gameContract.off('CharacterNFTMinted', onCharacterMint);
+            }
+        };
+    }, [gameContract, setCharacterNFT]);
 
     useEffect(() => {
         const { ethereum } = window;
@@ -89,7 +95,7 @@ const SelectCharacter = ({ setCharacterNFT }) => {
         } else {
           console.log('Ethereum object not found');
         }
-      }, []);
+    }, []);
     
     return (
         <div className="select-character-container">
