@@ -1,6 +1,8 @@
 .arena-container {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  grid-template-rows: repeat(auto-fit, minmax(300px, 1fr));
+  grid-row-gap: 15px;
   align-items: center;
   margin: auto;
   margin-top: 64px;  
@@ -67,13 +69,12 @@
 
 .health-bar progress[value]::-webkit-progress-bar {
   background-color: #e5652e;
-  border-bottom-left-radius: 15px;
-  border-bottom-right-radius: 15px;
+  border-radius: 15px;
   overflow: hidden;
 }
 
 .health-bar progress[value]::-webkit-progress-value {
-  background-color: #70cb1b;
+  background-color: #79cc1a;
 }
 
 .health-bar p {
