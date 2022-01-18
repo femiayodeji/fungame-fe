@@ -101,7 +101,6 @@ const SelectCharacter = ({ setCharacterNFT }) => {
         } else {
           console.log('Ethereum object not found');
         }
-        setMintingCharacter(true)
     }, []);
     
     return (

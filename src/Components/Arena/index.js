@@ -3,6 +3,7 @@ import { ethers } from 'ethers';
 import { CONTRACT_ADDRESS, transformCharacterData } from '../../constants';
 import FungameABI from '../../utils/FunGame.json';
 import './Arena.css';
+import LoadingIndicator from '../LoadingIndicator';
 
 const Arena = ({ characterNFT, setCharacterNFT }) => {
     const [gameContract, setGameContract] = useState(null);
@@ -91,6 +92,12 @@ const Arena = ({ characterNFT, setCharacterNFT }) => {
                         {`💥 Attack ${boss.name}`}
                     </button>
                 </div>
+                {attackState === 'attacking' && (
+                    <div className="loading-indicator">
+                        <LoadingIndicator />
+                        <p>Attacking ⚔️</p>
+                    </div>
+                )}
             </div>
         )}
 
