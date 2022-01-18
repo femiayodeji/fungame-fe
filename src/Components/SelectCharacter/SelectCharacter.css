@@ -58,8 +58,7 @@
   cursor: pointer;
   background-color: rgba(226, 15, 15, 0.281);
   color: rgb(236, 216, 33);
-  /* text-shadow: 1px 1px 1px #000000; */
-  font-weight: 100;
+  text-shadow: 1px 1px 1px #000000;
   font-size: 16px;
   transition: 0.5s;
 }

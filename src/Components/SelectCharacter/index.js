@@ -18,30 +18,25 @@ const SelectCharacter = ({ setCharacterNFT }) => {
                 <button
                     type="button"
                     className="character-mint-button"
-                    // onClick={mintCharacterNFTAction(index)}
+                    onClick={mintCharacterNFTAction(index)}
                 >{`Mint ${character.name}`}</button>
             </div>
         ));        
     }
 
-    useEffect(() => {
-        const { ethereum } = window;
-      
-        if (ethereum) {
-          const provider = new ethers.providers.Web3Provider(ethereum);
-          const signer = provider.getSigner();
-          const gameContract = new ethers.Contract(
-            CONTRACT_ADDRESS,
-            FungameABI.abi,
-            signer
-          );
-      
-          setGameContract(gameContract);
-        } else {
-          console.log('Ethereum object not found');
+    const mintCharacterNFTAction = (characterId) => async () => {
+        try {
+          if (gameContract) {
+            console.log('Minting character in progress...');
+            const mintTxn = await gameContract.mintCharacterNFT(characterId);
+            await mintTxn.wait();
+            console.log('mintTxn:', mintTxn);
+          }
+        } catch (error) {
+          console.warn('MintCharacterAction Error:', error);
         }
-      }, []);
-    
+    };
+
     useEffect(() => {
         const getCharacters = async () => {
           try {
@@ -63,8 +58,26 @@ const SelectCharacter = ({ setCharacterNFT }) => {
         if (gameContract) {
           getCharacters();
         }
-      }, [gameContract]);
+    }, [gameContract]);
 
+    useEffect(() => {
+        const { ethereum } = window;
+      
+        if (ethereum) {
+          const provider = new ethers.providers.Web3Provider(ethereum);
+          const signer = provider.getSigner();
+          const gameContract = new ethers.Contract(
+            CONTRACT_ADDRESS,
+            FungameABI.abi,
+            signer
+          );
+      
+          setGameContract(gameContract);
+        } else {
+          console.log('Ethereum object not found');
+        }
+      }, []);
+    
     return (
         <div className="select-character-container">
             <h2>Mint Your Hero. Choose wisely.</h2>
