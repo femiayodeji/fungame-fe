@@ -17,7 +17,7 @@ const SelectCharacter = ({ setCharacterNFT }) => {
                 <div className="name-container">
                     <p>{character.name}</p>
                 </div>
-                <img src={character.imageURI} alt={character.name} />
+                <img src={`https://gateway.pinata.cloud/ipfs/${character.imageURI}`} alt={character.name} />
                 <button
                     type="button"
                     className="character-mint-button"
