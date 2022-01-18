@@ -3,6 +3,7 @@ import twitterLogo from './assets/twitter-logo.svg';
 import mkLogo from './assets/mk.png';
 import './App.css';
 import SelectCharacter from './Components/SelectCharacter';
+import Arena from './Components/Arena';
 import { CONTRACT_ADDRESS, transformCharacterData } from './constants';
 import FungameABI from './utils/FunGame.json';
 import { ethers } from 'ethers';
@@ -53,6 +54,8 @@ const App = () => {
         );
       } else if (currentAccount && !characterNFT) {
         return <SelectCharacter setCharacterNFT={setCharacterNFT} />;
+      } else if(currentAccount && characterNFT){
+        return <Arena characterNFT={characterNFT}/>
       }
     };
 

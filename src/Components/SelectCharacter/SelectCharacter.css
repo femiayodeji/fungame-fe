@@ -5,6 +5,7 @@
   flex-direction: column;
   align-items: center;
   color: white;
+  margin-top: 64px;  
 }
 
 .select-character-container .character-grid {

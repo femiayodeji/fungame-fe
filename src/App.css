@@ -86,10 +86,6 @@
   animation: gradient-animation 4s ease infinite;
 }
 
-.select-character-container{
-  margin-top: 64px;  
-}
-
 .mint-button {
   background: -webkit-linear-gradient(left, #a200d6, #ff6fdf);
   background-size: 200% 200%;
