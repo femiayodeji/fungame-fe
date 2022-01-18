@@ -13,7 +13,6 @@
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  margin-bottom: 50px;
 }
 
 .boss-container .boss-content {
@@ -95,15 +94,22 @@
 .players-container .player {
   display: flex;
   flex-direction: column;
-  max-height: 80%;
-  padding: 10px;
+  max-height: 100%;
+  padding: 0 10px;
   border-radius: 10px;
-  background-color: gray;
+  background: rgba(255,255,255,0.2);
+  border-radius: 10px;
+  border: 1px solid #ffffff8c;
+}
+
+.players-container p.player-text{
+  font-weight: 100;
+  margin-top: 0;
 }
 
 .player .image-content img {
   width: 250px;
-  height: 300px;
+  height: 200px;
   border-radius: 10px;
   object-fit: cover;
 }
