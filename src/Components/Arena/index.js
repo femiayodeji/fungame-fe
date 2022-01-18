@@ -4,7 +4,7 @@ import { CONTRACT_ADDRESS, transformCharacterData } from '../../constants';
 import FungameABI from '../../utils/FunGame.json';
 import './Arena.css';
 
-const Arena = ({ characterNFT }) => {
+const Arena = ({ characterNFT, setCharacterNFT }) => {
     const [gameContract, setGameContract] = useState(null);
     const [boss, setBoss] = useState(null);
     const [attackState, setAttackState] = useState('');
@@ -50,10 +50,26 @@ const Arena = ({ characterNFT }) => {
             setBoss(transformCharacterData(bossTxn));
         };
     
+        const onAttackComplete = (newBossHp, newPlayerHp) => {
+            const bossHp = newBossHp.toNumber();
+            const playerHp = newPlayerHp.toNumber();
+
+            console.log(`AttackComplete: Boss Hp: ${bossHp} Player Hp: ${playerHp}`);
+
+            setBoss((prevState) => {
+                return { ...prevState, hp: bossHp };
+            });
+
+            setCharacterNFT((prevState) => {
+                return { ...prevState, hp: playerHp };
+            });
+        };
+
         if (gameContract) {
             fetchBoss();
+            gameContract.on('AttackComplete', onAttackComplete);
         }
-    }, [gameContract]);
+    }, [gameContract, setCharacterNFT]);
   
 
   return (
